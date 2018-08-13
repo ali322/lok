@@ -11,7 +11,7 @@ var Conn *gorm.DB
 
 func init() {
 	var err error
-	Conn, err = gorm.Open("sqlite3", filepath.Join("data", "jav.db"))
+	Conn, err = gorm.Open("sqlite3", filepath.Join("data", "lok.db"))
 	if err != nil {
 		panic("failed to connect database")
 	}

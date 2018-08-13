@@ -2,8 +2,8 @@ package lib
 
 import (
 	"fmt"
-	"jav/lib/model"
 	"log"
+	"lok/lib/model"
 	"strings"
 
 	"github.com/urfave/cli"

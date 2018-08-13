@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"jav/lib"
+	"lok/lib"
 
 	"github.com/urfave/cli"
 )
@@ -26,6 +26,10 @@ func main() {
 				cli.StringFlag{
 					Name:  "remark",
 					Usage: "disk remark",
+				},
+				cli.StringFlag{
+					Name:  "ext",
+					Usage: "stuff extnames",
 				},
 			},
 			Usage:  "scan files in disk",
