@@ -2,7 +2,7 @@ package lib
 
 import (
 	"fmt"
-	"jav/model"
+	"jav/lib/model"
 	"log"
 	"os"
 	"path/filepath"
@@ -10,9 +10,10 @@ import (
 	"github.com/urfave/cli"
 )
 
+// Scan scan stuffs in disk and add correspond record to database
 func Scan(c *cli.Context) error {
 	if c.NArg() != 1 {
-		log.Fatal("expect only one arg")
+		log.Fatal("only one argument expected")
 	}
 	root := c.Args().First()
 	path := c.String("path")
@@ -34,7 +35,7 @@ func Scan(c *cli.Context) error {
 						Remark:    remark,
 						UpdatedAt: modTime,
 					}
-					db := model.Conn()
+					db := model.Conn
 					db.AutoMigrate(&model.Stuff{})
 					db.Create(stuff)
 					defer db.Close()

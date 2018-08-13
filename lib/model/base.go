@@ -1,14 +1,18 @@
 package model
 
 import (
+	"path/filepath"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
-func Conn() *gorm.DB {
-	db, err := gorm.Open("sqlite3", "test.db")
+var Conn *gorm.DB
+
+func init() {
+	var err error
+	Conn, err = gorm.Open("sqlite3", filepath.Join("data", "jav.db"))
 	if err != nil {
 		panic("failed to connect database")
 	}
-	return db
 }

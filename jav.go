@@ -32,10 +32,16 @@ func main() {
 			Action: lib.Scan,
 		},
 		{
-			Name:    "list",
-			Aliases: []string{"ls"},
-			Usage:   "list all mounted disk",
-			Action:  lib.List,
+			Name:    "query",
+			Aliases: []string{"q"},
+			Flags: []cli.Flag{
+				cli.StringFlag{
+					Name:  "remark",
+					Usage: "stuff remark",
+				},
+			},
+			Usage:  "query stuffs by condition",
+			Action: lib.Query,
 		},
 	}
 	err := app.Run(os.Args)
