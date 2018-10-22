@@ -24,9 +24,9 @@ func Query(c *cli.Context) error {
 		db = db.Where("remark = ?", remark)
 	}
 	db.Find(&stuffs)
-	fmt.Println(len(stuffs))
+	fmt.Printf("共找到 %d 个结果\n", len(stuffs))
 	for _, stuff := range stuffs {
-		fmt.Println(stuff.Name)
+		fmt.Printf(" %s, %s, %s\n", stuff.Remark, stuff.Path, stuff.Name)
 	}
 	return nil
 }
