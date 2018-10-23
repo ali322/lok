@@ -43,9 +43,25 @@ func main() {
 					Name:  "remark",
 					Usage: "stuff remark",
 				},
+				cli.StringFlag{
+					Name:  "path",
+					Usage: "stuff path",
+				},
 			},
 			Usage:  "query stuffs by condition",
 			Action: lib.Query,
+		},
+		{
+			Name:    "list",
+			Aliases: []string{"q"},
+			Flags: []cli.Flag{
+				cli.StringFlag{
+					Name:  "remark",
+					Usage: "stuff remark",
+				},
+			},
+			Usage:  "list paths by remark",
+			Action: lib.List,
 		},
 	}
 	err := app.Run(os.Args)

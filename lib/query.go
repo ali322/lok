@@ -2,7 +2,6 @@ package lib
 
 import (
 	"fmt"
-	"log"
 	"lok/lib/model"
 	"strings"
 
@@ -11,17 +10,20 @@ import (
 
 // Query query stuff by condition
 func Query(c *cli.Context) error {
-	if c.NArg() != 1 {
-		log.Fatal("only one argument expected")
-	}
 	key := c.Args().First()
 	remark := c.String("remark")
+	path := c.String("path")
 	db := model.Conn
 	defer db.Close()
 	stuffs := []model.Stuff{}
-	db = db.Where("name LIKE ?", strings.Join([]string{"%", key, "%"}, ""))
+	if key != "" {
+		db = db.Where("name LIKE ?", strings.Join([]string{"%", key, "%"}, ""))
+	}
 	if remark != "" {
 		db = db.Where("remark = ?", remark)
+	}
+	if path != "" {
+		db = db.Where("path = ?", path)
 	}
 	db.Find(&stuffs)
 	fmt.Printf("共找到 %d 个结果\n", len(stuffs))
