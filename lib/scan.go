@@ -2,7 +2,6 @@ package lib
 
 import (
 	"fmt"
-	"log"
 	"lok/lib/model"
 	"os"
 	"path/filepath"
@@ -23,12 +22,15 @@ func contains(a []string, x string) bool {
 // Scan scan stuffs in disk and add correspond record to database
 func Scan(c *cli.Context) error {
 	if c.NArg() != 1 {
-		log.Fatal("only one argument expected")
+		// log.Fatal("only one argument expected")
 	}
 	root := c.Args().First()
 	path := c.String("path")
 	remark := c.String("remark")
 	exts := strings.Split(c.String("ext"), ",")
+	fmt.Println(root, path, remark, exts)
+	db := model.Conn
+	db.AutoMigrate(&model.Stuff{})
 	filepath.Walk(filepath.Join(root, path), func(dest string, info os.FileInfo, err error) error {
 		if err != nil {
 			fmt.Println(err)
@@ -46,15 +48,13 @@ func Scan(c *cli.Context) error {
 						Remark:    remark,
 						UpdatedAt: modTime,
 					}
-					db := model.Conn
-					db.AutoMigrate(&model.Stuff{})
 					db.Create(stuff)
-					defer db.Close()
 				}
 			}
 		}
 		return nil
 	})
+	defer db.Close()
 
 	fmt.Println("finished scan file in", root)
 	return nil
